@@ -12,7 +12,8 @@ public class Client {
     private String profissao;
     private String endereco;
 
-    @OneToOne
+    @JoinColumn(unique = true)
+    @OneToOne // belongs to count
     private Conta conta;
 
     public Long getId() {
@@ -45,5 +46,13 @@ public class Client {
 
     public void setEndereco(String endereco) {
         this.endereco = endereco;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
     }
 }

@@ -4,19 +4,24 @@ import br.com.alura.jpa.modelo.*;
 
 import javax.persistence.*;
 
-public class CriaCategory {
+public class TesteRelacionamentoContaCliente {
     public static void main(String[] args) {
+        Conta conta = new Conta();
+        conta.setId(1L);
+
+        Client client = new Client();
+        client.setConta(conta);
+        client.setEndereco("Alameda das Orquideas");
+        client.setNome("Santander");
+        client.setProfissao("Bancario");
+
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("contas");
         EntityManager em = emf.createEntityManager();
 
-        Category category = new Category();
-        category.setName("Esporte");
-
         em.getTransaction().begin();
-        // Transient -> Managed
-        em.persist(category);
+        em.persist(client);
         em.getTransaction().commit();
         em.close();
-        emf.close();
+
     }
 }
