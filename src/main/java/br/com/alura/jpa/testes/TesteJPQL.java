@@ -14,15 +14,17 @@ public class TesteJPQL {
         conta.setId(1L);
 
         // String jpql = "select m from Movimentacao m where m.conta.id = 1";
-        String jpql = "select m from Movimentacao m where m.conta = :pCconta order by m.description ASC";
+        // String jpql = "select m from Movimentacao m where m.conta = :pCconta order by m.description ASC";
+        String jpql = "select m from Movimentacao m join Conta c on m.conta.id = c.id";
 
         TypedQuery<Movimentacao> query = em.createQuery(jpql, Movimentacao.class);
-        query.setParameter("pCconta", conta);
+//        query.setParameter("pConta", conta);
         List<Movimentacao> results = query.getResultList();
 
         for (Movimentacao movimentacao : results) {
             System.out.println("Descrição: " + movimentacao.getDescription());
             System.out.println("Tipo: " + movimentacao.getTipoMovimentacao());
+            System.out.println("Titular: " + movimentacao.getConta().getTitular());
         }
     }
 }
